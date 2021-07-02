@@ -1,0 +1,19 @@
+{
+  "name": "react_on_typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nabezokodaikon/react_on_typescript.git",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.13",
+    "@types/react-dom": "^17.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
