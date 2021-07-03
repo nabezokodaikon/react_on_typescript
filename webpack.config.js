@@ -1,9 +1,9 @@
 module.exports = {
   mode: "development",
-  entry: "./src/main.tsx",
+  entry: "./public/src/main.tsx",
   output: {
-    path: `${__dirname}/dist`,
-    filename: "main.js"
+    path: `${__dirname}/public/dist`,
+    filename: "bundle.js"
   },
   module: {
     rules: [
