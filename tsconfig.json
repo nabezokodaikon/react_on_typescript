@@ -2,11 +2,11 @@
   "compilerOptions": {
     "sourceMap": true,
     "target": "ES5",
-    "module": "ES2021",
+    "module": "ES2020",
     "jsx": "react",
     "moduleResolution": "node",
     "lib": [
-      "ES2021",
+      "ES2020",
       "DOM"
     ]
   }
