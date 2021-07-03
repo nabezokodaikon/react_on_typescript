@@ -19,6 +19,7 @@
   },
   "scripts": {
     "build": "webpack --mode development",
+    "watch": "webpack --watch",
     "server": "node public/server.js"
   }
 }
