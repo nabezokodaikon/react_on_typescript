@@ -1,45 +1,59 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import {ThemeContext, themes} from './theme-context';
+import ThemedButton from './themed-button';
 
-const ThemeContext = React.createContext('light');
 
-interface IButtonProps {
-  theme: React.ContextType<typeof ThemeContext>;
+interface IToolbarProps {
+  changeTheme: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-class Button extends React.Component<IButtonProps> {
-  constructor(props: IButtonProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <button>Button</button>
-    );
-  }
+interface IAppProps {
+  changeTheme?: React.MouseEventHandler<HTMLButtonElement>;
+}
+interface IAppState {
+  theme: { foreground: string; background: string; };
 }
 
-class ThemedButton extends React.Component {
-  static contextType = ThemeContext;
-  render() {
-    return <Button theme={this.context}></Button>
-  }
-}
-
-function Toolbar() {
+function Toolbar(props: IToolbarProps) {
   return (
-    <>
-      <ThemedButton />
-    </>
+    <ThemedButton onClick={props.changeTheme}>
+      Change Theme
+    </ThemedButton>
   );
 }
 
-class App extends React.Component {
+class App extends React.Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      theme: themes.light,
+    };
+
+    this.toggleTheme = () => {
+      this.setState(state => {
+        theme:
+          state.theme === themes.dark
+            ? themes.light : themes.dark
+      });
+
+    };
+  }
+
+  toggleTheme = () => {}
+
   render() {
     return (
-      <ThemeContext.Provider value="dark">
-        <Toolbar />
-      </ ThemeContext.Provider>
+      <>
+        <ThemeContext.Provider value={this.state.theme}>
+          <Toolbar changeTheme={this.toggleTheme} />
+        </ThemeContext.Provider>
+        <div>
+          <ThemedButton onClick={this.props.changeTheme}>
+            Change Theme
+          </ThemedButton>
+        </div>
+      </>
     );
   }
 }
