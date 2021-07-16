@@ -1,64 +1,70 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {ThemeContext, themes} from './theme-context';
-import ThemedButton from './themed-button';
 
-
-interface IToolbarProps {
-  changeTheme: React.MouseEventHandler<HTMLButtonElement>;
+interface ISquareProps {
+  value: number;  
 }
 
-interface IAppProps {
-  changeTheme?: React.MouseEventHandler<HTMLButtonElement>;
-}
-interface IAppState {
-  theme: { foreground: string; background: string; };
-}
-
-function Toolbar(props: IToolbarProps) {
-  return (
-    <ThemedButton onClick={props.changeTheme}>
-      Change Theme
-    </ThemedButton>
-  );
-}
-
-class App extends React.Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
-    super(props);
-    this.state = {
-      theme: themes.light,
-    };
-
-    this.toggleTheme = () => {
-      this.setState(state => {
-        theme:
-          state.theme === themes.dark
-            ? themes.light : themes.dark
-      });
-
-    };
-  }
-
-  toggleTheme = () => {}
-
+class Square extends React.Component<ISquareProps> {
   render() {
     return (
-      <>
-        <ThemeContext.Provider value={this.state.theme}>
-          <Toolbar changeTheme={this.toggleTheme} />
-        </ThemeContext.Provider>
-        <div>
-          <ThemedButton onClick={this.props.changeTheme}>
-            Change Theme
-          </ThemedButton>
-        </div>
-      </>
+      <button className="square" onClick={function() {alert("click");}}>
+        {this.props.value}
+      </button>
     );
   }
 }
 
+class Board extends React.Component {
+  renderSquare(i: number) {
+    return <Square value={i} />;
+  }
+
+  render() {
+    const status = 'Next player: X';
+
+    return (
+      <div>
+        <div className="status">{status}</div>
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+      </div>
+    );
+  }
+}
+
+class Game extends React.Component {
+  render() {
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board />
+        </div>
+        <div className="game-info">
+          <div>{/* status */}</div>
+          <ol>{/* TODO */}</ol>
+        </div>
+      </div>
+    );
+  }
+}
+
+// ========================================
+
 ReactDOM.render(
-  <App />,
-  document.getElementById("root")
+  <Game />,
+  document.getElementById('root')
 );
